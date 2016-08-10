@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<h2><%= @product.name %></h2>
+
+<div>
+  <div style="display: inline-block; vertical-align: top;">
+    <img src="<%= @product.photo_url %>" alt="<%= @product.name %>" style="width: 200px">
+  </div>
+  <p style="display: inline-block; width: 400px; vertical-align: top;">
+    <%= @product.description %>
+  </p>
+  <div style="display: inline-block; width: 100px; vertical-align: top;">
+    <% if @product.stock > 0 %>
+      <%= link_to 'Ajouter au panier', cart_url(product: @product.id), method: :put %>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to 'Retour aux produits', products_path %>

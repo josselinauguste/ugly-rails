@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+<h2>Mon panier</h2>
+
+<% if @products.empty? %>
+    <p>
+      Mon panier est vide !
+    </p>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Produit</th>
+        <th>Prix unitaire</th>
+        <th>Quantité</th>
+        <th>Prix total</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% total_price = 0 %>
+    <% @products.each do |product| %>
+        <% total_price = total_price + product.product.price * product.quantity %>
+        <tr>
+          <td><img src="<%= product.product.photo_url %>" alt="<%= product.product.name %>" style="width: 50px"></td>
+          <td><strong><%= link_to product.product.name, product.product %></strong></td>
+          <td style="text-align: right"><%= product.product.price %> €</td>
+          <td style="text-align: right"><%= product.quantity %></td>
+          <td style="text-align: right"><%= product.product.price * product.quantity %> €</td>
+          <td><%= link_to 'Retirer du panier', cart_path(product: product.product.id), method: :delete %></td>
+        </tr>
+    <% end %>
+    </tbody>
+    <tfooter>
+      <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th style="text-align: right"><%= total_price %> €</th>
+        <th></th>
+      </tr>
+    </tfooter>
+  </table>
+<% end %>
+
+<%= link_to 'Retour aux produits', products_path %>
